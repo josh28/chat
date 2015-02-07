@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    div.container
+        h1= title
+        p Welcome to #{title}
+        form.form(action='chat')
+            div.form-group
+                label(for='nickname') Enter nickname
+                input#nickname.form-control(name='n', style='width: 50%')
+                div.dropdown
+                    button#selectRoom(class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='true') Select Room
+                        span.caret
+                    ul#rooms.dropdown-menu(aria-labelledby='selectRoom', role='menu')
+                br
+                button(class='btn btn-primary', type='submit') Join
+
+    script(src='/socket.io/socket.io.js')
+    script.
+        $(function() {
+            $.get('chat/rooms', function(data) {
+                $.each(data, function(i, room) {
+                    var formattedRoom = '<a role="menuitem" tabindex="-1" href="#">' + room.name + '</a>'
+                    $('#rooms').append($('<li role="presentation">').html(formattedRoom))
+                })
+            })
+
+            $('#nickname').focus()
+
+            $('form').submit(function() {
+            })
+        })

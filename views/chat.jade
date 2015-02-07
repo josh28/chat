@@ -1,0 +1,40 @@
+//
+   Created by Josh on 2/5/2015.
+extends layout
+
+block content
+    ul#messages
+    form.form(role='form')
+        input#m(autocomplete='off', type='text')
+        button(class='btn btn-default') send
+
+    script(src='/socket.io/socket.io.js')
+    script.
+        $(function() {
+            $('#m').focus()
+
+            var socket = io()
+
+            socket.on('chat message', function(msg) {
+                var formattedMessage = '[<i>' + msg.timeStamp + '</i>] <strong>' + msg.nick + '</strong>: ' + msg.text;
+                $('#messages').append($('<li>').html(formattedMessage))
+            })
+
+            socket.on('user joined', function(user) {
+                var message = '[' + user + '] has joined the channel.';
+                $('#messages').append($('<li>').text(message))
+            })
+
+            $('form').submit(function(){
+                var message = $('#m');
+                var text = message.val();
+                var nick = $.QueryString["n"]
+
+                socket.emit('submit message', { nick: nick, text: text })
+
+                message.val('')
+                message.focus()
+
+                return false
+            })
+        })
