@@ -1,3 +1,5 @@
+html, body {margin:0;padding:0;height:100%;}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -9,17 +11,46 @@ a {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font: 13px Helvetica, Arial; }
-form { padding: 3px; bottom: 0; width: 100%; }
-form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-#messages {
+form { margin-top: 3px; bottom: 0; width: 100%; }
+form input { padding: 10px; width: 90%; margin-right: .5%; }
+form button { width: 9.5%; padding: 10px; }
+
+#chatWindow {
     list-style-type: none;
     margin: 0;
     padding: 0;
     border: solid 1px #000;
-    border-radius: 10px;
-    height: 60%;
+    height: 80%;
+    width: 80%;
     overflow-x: auto;
+    word-wrap: break-word;
+    float: left;
 }
-#messages li { padding: 5px 10px; }
-#messages li:nth-child(odd) { background: #eee; border-radius: 10px; }
+
+#chatWindow li {
+    padding: 5px 10px;
+}
+
+#chatWindow li:nth-child(odd) {
+    background: #eee;
+}
+
+#userWindow {
+    list-style-type: none;
+    margin-left: 1%;
+    padding: 0;
+    border: solid 1px #000;
+    height: 80%;
+    width: 19%;
+    overflow-x: auto;
+    float: right;
+}
+
+.chatMessage {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.underline {
+    text-decoration: underline;
+}

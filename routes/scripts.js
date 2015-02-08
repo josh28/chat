@@ -10,4 +10,8 @@ router.get('/global.js', function(req, res, next) {
     res.sendFile(path.join(__dirname, 'scripts', 'global.js'))
 });
 
+router.get('/bootstrap.js', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '..', 'node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.min.js'))
+});
+
 module.exports = router;

@@ -3,26 +3,36 @@
 extends layout
 
 block content
-    ul#messages
-    form.form(role='form')
+    ul#chatWindow
+    ul#userWindow
+    form.form-inline(role='form')
         input#m(autocomplete='off', type='text')
-        button(class='btn btn-default') send
+        button
+            span.underline S
+            span END
 
     script(src='/socket.io/socket.io.js')
     script.
         $(function() {
             $('#m').focus()
-
             var socket = io()
 
             socket.on('chat message', function(msg) {
+                var messageWindow = $('#chatWindow');
                 var formattedMessage = '[<i>' + msg.timeStamp + '</i>] <strong>' + msg.nick + '</strong>: ' + msg.text;
-                $('#messages').append($('<li>').html(formattedMessage))
+                messageWindow.append($('<li class="chatMessage">').html(formattedMessage))
+                messageWindow.animate({ scrollTop: messageWindow[0].scrollHeight}, 1000);
             })
 
             socket.on('user joined', function(user) {
                 var message = '[' + user + '] has joined the channel.';
-                $('#messages').append($('<li>').text(message))
+                $('#chatWindow').append($('<li>').text(message))
+            })
+
+            $(document).keydown(function (e) {
+                if (e.altKey && e.keyCode == 83) {
+                    $('form').submit()
+                }
             })
 
             $('form').submit(function(){

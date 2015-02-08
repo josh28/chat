@@ -2,15 +2,20 @@ extends layout
 
 block content
     div.container
-        h1= title
-        p Welcome to #{title}
+        div.jumbotron
+            h1= title
+            p Welcome to the best chat program ever conceived . . .
+        br
         form.form(action='chat')
             div.form-group
-                label(for='nickname') Enter nickname
+                label(for='nickname') Nickname/Handle:
                 input#nickname.form-control(name='n', style='width: 50%')
+                br
                 div.dropdown
-                    button#selectRoom(class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='true') Select Room
+                    button#selectRoom(class='btn btn-default dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='true', style='padding: 7px')
+                        span(style='padding: 2px') Select Room
                         span.caret
+                    label(class='label label-warning', style='margin-left: 5px') Not Implemented
                     ul#rooms.dropdown-menu(aria-labelledby='selectRoom', role='menu')
                 br
                 button(class='btn btn-primary', type='submit') Join
