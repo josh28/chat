@@ -40,7 +40,7 @@ block content
                 var text = message.val();
                 var nick = $.QueryString["n"]
 
-                socket.emit('submit message', { nick: nick, text: text })
+                socket.emit('submit message', { nick: nick, text: text, timeZoneOffset: new Date().getTimezoneOffset() })
 
                 message.val('')
                 message.focus()

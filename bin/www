@@ -45,7 +45,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('submit message', function(msg){
-        msg.timeStamp = getTime()
+        msg.timeStamp = getTime(msg.timeZoneOffset)
         io.emit('chat message', msg);
     });
 
@@ -54,8 +54,8 @@ io.on('connection', function(socket){
     });
 });
 
-function getTime() {
-    var date = new Date();
+function getTime(timeZoneOffset) {
+    var date = new Date(new Date() - timeZoneOffset);
 
     var hour = date.getHours();
     hour = (hour < 10 ? "0" : "") + hour;
