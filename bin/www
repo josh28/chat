@@ -35,8 +35,8 @@ io.on('connection', function(socket){
         io.sockets.emit('user connected');
     });
 
-    socket.on('private message', function(from, msg) {
-        console.log('private message sent from: ' + from + ', containing message: ' + msg);
+    socket.on('say to someone', function(id, msg){
+        socket.broadcast.to(id).emit('my message', msg);
     });
 
     socket.on('user joined', function(data) {
@@ -54,8 +54,10 @@ io.on('connection', function(socket){
     });
 });
 
-function getTime(timeZoneOffset) {
-    var date = new Date(new Date() - timeZoneOffset);
+function getTime(clientTimeZoneOffset) {
+    var serverTimeZoneOffset = new Date().getTimezoneOffset();
+    var remainderOffset = serverTimeZoneOffset - clientTimeZoneOffset;
+    var date = new Date(new Date() - convertOffsetToMs(remainderOffset));
 
     var hour = date.getHours();
     hour = (hour < 10 ? "0" : "") + hour;
@@ -67,6 +69,10 @@ function getTime(timeZoneOffset) {
     sec = (sec < 10 ? "0" : "") + sec;
 
     return hour + ":" + min + ":" + sec;
+}
+
+function convertOffsetToMs(offset) {
+    return offset * 60 * 1000;
 }
 
 /**
