@@ -26,9 +26,9 @@ var io = require('socket.io')(server);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+server.listen(port);
 
 io.on('connection', function(socket){
     socket.on('connect', function() {
@@ -40,8 +40,9 @@ io.on('connection', function(socket){
     });
 
     socket.on('user joined', function(data) {
-        console.log('user joined: ' + data);
-        io.emit('user joined', data);
+        var clientCount = io.sockets.server.eio.clientsCount;
+        var payload = {nick: data.nick, clientCount: clientCount, timeStamp: getTime(data.timeZoneOffset)};
+        io.emit('user joined', payload);
     });
 
     socket.on('submit message', function(msg){

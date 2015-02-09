@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.render('chat', req.query);
+    res.render('chat', {title: 'Room: Lobby', n: req.query, room: 'Lobby', userCount: 1});
 });
 
 router.get('/rooms', function(req, res, next) {
