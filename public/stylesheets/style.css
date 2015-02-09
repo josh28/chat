@@ -21,7 +21,7 @@ form button { width: 9.5%; padding: 10px; }
     padding: 0;
     border: solid 1px #000;
     height: 80%;
-    width: 80%;
+    width: 90%;
     overflow-x: auto;
     word-wrap: break-word;
     float: left;
@@ -41,7 +41,7 @@ form button { width: 9.5%; padding: 10px; }
     padding: 0;
     border: solid 1px #000;
     height: 80%;
-    width: 19%;
+    width: 9%;
     overflow-x: auto;
     float: right;
 }

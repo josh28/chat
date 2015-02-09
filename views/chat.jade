@@ -53,10 +53,23 @@ block content
                     $(document).prop('title', '(' + unreadMessageCount + ') - ' + baseTitle)
                 }
 
-                if (userIsNotInUserWindow()) {
-                    appendUserToUserWindow()
+                if (!nickIsInUserWindow(msg.nick)) {
+                    appendUserToUserWindow(msg.nick)
                 }
             })
+        }
+
+        function nickIsInUserWindow(nick) {
+            var result = false
+
+            $('#userWindow li').each(function() {
+                if ($(this).text() == nick) {
+                    result = true
+                    return
+                }
+            })
+
+            return result
         }
 
         function handleUserJoiningRoom() {
